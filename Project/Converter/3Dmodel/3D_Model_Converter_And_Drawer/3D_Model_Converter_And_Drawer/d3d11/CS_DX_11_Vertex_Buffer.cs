@@ -229,14 +229,11 @@ namespace SharpDXSample
 		// 描画を行う　引数：デバイス、コンテキスト
 		override public void M_Set_Vertex_Buffer(Device in_device, DeviceContext in_context)
 		{
-			// 頂点バッファ未生成の場合は生成する
-			if (m_vertex_buffer == null)
-			{
-				M_Create_Vertex_Buffer(in_device);
-			}
+            // 頂点バッファを生成
+            M_Create_Vertex_Buffer(in_device);
 
-			// 頂点バッファの設定
-			if (m_vertex_buffer != null)
+            // 頂点バッファの設定
+            if (m_vertex_buffer != null)
 			{
 				in_context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
 				in_context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(m_vertex_buffer, s_stride, 0));

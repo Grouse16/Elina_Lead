@@ -1,4 +1,5 @@
 ﻿using Assimp;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 
@@ -286,6 +287,38 @@ namespace _3D_Model_Converter_And_Drawer
 
             // 見つからなかったら-1を返す
             return -1;
+        }
+
+
+        //-☆- ベクトル -☆-//
+
+        // 方向ベクトルを０～１の値に正規化する　引数：方向ベクトル　戻り値：正規化された方向ベクトル
+        public static SharpDX.Vector3 M_Normalize_Vector(SharpDX.Vector3 in_vector)
+        {
+            // ☆ 変数宣言 ☆ //
+            SharpDX.Vector3 result_vector = in_vector;  // 結果のベクトル
+
+            float vector_length = 0.0f;   // ベクトルの長さ
+
+
+            // ベクトルを正規化する
+            result_vector.Normalize();
+
+            // ベクトルの長さを取得する
+            vector_length = Math.Abs(in_vector.X) + Math.Abs(in_vector.Y) + Math.Abs(in_vector.Z);
+
+
+            // ベクトルの長さが０なら０を返す
+            if (vector_length == 0.0f)
+            {
+                return new SharpDX.Vector3(0.0f, 0.0f, 0.0f);
+            }
+
+
+            // 正規化したベクトルを返す
+            result_vector = new SharpDX.Vector3(in_vector.X / vector_length, in_vector.Y / vector_length, in_vector.Z / vector_length);
+            result_vector.Normalize();
+            return result_vector;
         }
     }
 }

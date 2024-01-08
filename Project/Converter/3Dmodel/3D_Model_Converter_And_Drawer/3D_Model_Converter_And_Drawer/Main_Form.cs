@@ -1,39 +1,31 @@
-﻿using SharpDX;
+﻿using _3D_Model_Converter_And_Drawer._3D_Model_Importer.Import_System;
+using _3D_Model_Converter_And_Drawer._3DModel;
+using _3D_Model_Converter_And_Drawer._3DModel.Animation;
+using _3D_Model_Converter_And_Drawer._3DModel.Animation.System;
+using _3D_Model_Converter_And_Drawer._3DModel.Static;
+using _3D_Model_Converter_And_Drawer.d3d11;
+using _3D_Model_Converter_And_Drawer.d3d11.Transform;
+using _3D_Model_Converter_And_Drawer.Rendering_Systems.Camera;
+using Assimp;
+using SharpDX;
+using SharpDX.D3DCompiler;
+using SharpDX.Direct3D11;
 using SharpDXSample;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Assimp;
-using System.Runtime.InteropServices;
-using Assimp.Unmanaged;
-using _3D_Model_Converter_And_Drawer.Animation_Convert;
-using _3D_Model_Converter_And_Drawer._3D_Model_Importer;
-using _3D_Model_Converter_And_Drawer._3D_Model_Importer.Import_System;
-using _3D_Model_Converter_And_Drawer._3DModel.Static;
-using _3D_Model_Converter_And_Drawer._3DModel.Animation;
-using _3D_Model_Converter_And_Drawer._3DModel.Animation.System;
-using System.Diagnostics;
-using System.Runtime.Caching;
-using _3D_Model_Converter_And_Drawer._3DModel;
-using _3D_Model_Converter_And_Drawer.d3d11.Transform;
-using _3D_Model_Converter_And_Drawer.Rendering_Systems.Camera;
-using _3D_Model_Converter_And_Drawer.d3d11;
-using SharpDX.Direct3D11;
-using SharpDX.D3DCompiler;
 
 namespace _3D_Model_Converter_And_Drawer
 {
-	// ☆ クラス ☆ //
+    // ☆ クラス ☆ //
 
-	// メインフォーム
-	public partial class Main_Form : Form
+    // メインフォーム
+    public partial class Main_Form : Form
 	{
 		// ☆ 定数 ☆ //
 		const int con_WVP_CONSTANT_BUFFER_SLOT_NUMBER = 0;     // WVP行列の定数バッファのスロット番号
@@ -107,7 +99,7 @@ namespace _3D_Model_Converter_And_Drawer
 			// プロジェクションを設定
 			CS_Camera_Manager.mp_camera_system.mp_projection.mp_aspect_ratio = (float)uc_dx_11_panel.Width / (float)uc_dx_11_panel.Height;
 			CS_Camera_Manager.mp_camera_system.mp_projection.mp_field_of_view = 60.0f;
-			CS_Camera_Manager.mp_camera_system.mp_projection.mp_near_distance = 0.1f;
+			CS_Camera_Manager.mp_camera_system.mp_projection.mp_near_distance = 0.00001f;
 			CS_Camera_Manager.mp_camera_system.mp_projection.mp_far_distance = 1000.0f;
 
 
@@ -658,7 +650,6 @@ namespace _3D_Model_Converter_And_Drawer
             // 頂点バッファのデータを設定
             new_vertex_buffer.mp_vertex_data = m_static_model.mp_vertex_data_list;
             
-
 			// 頂点バッファを生成
 			new_vertex_buffer.M_Create_Vertex_Buffer(uc_dx_11_panel.mp_renderer.mp_device);
 
@@ -695,7 +686,6 @@ namespace _3D_Model_Converter_And_Drawer
 			CS_Camera_Manager.M_Set_Target_To_Camera_Angle(m_camera_angle);
 			CS_Camera_Manager.M_Set_Target_To_Camera_Distance(m_camera_distance);
 			CS_Camera_Manager.M_Update_Camera_Position_And_Angle_By_Target();
-
 
             // WVPマトリクスを定数バッファにセット
             M_Update_WVP_Constant_Buffer(con_WVP_CONSTANT_BUFFER_SLOT_NUMBER);

@@ -66,7 +66,7 @@ S_PS_IN VS(S_VS_IN vs_input)
 	
 	
 	// ワールド行列、ビュー行列、射影行列を掛け合わせる
-    vs_output.position = float4(vs_input.position.x, vs_input.position.y, vs_input.position.z, 1.0f);
+    vs_output.position = float4(vs_input.position.x, vs_input.position.y, vs_input.position.z, 1.0f) / 1000.0f;
     vs_output.position = mul(cb_wvp.world_matrix, vs_output.position);
     vs_output.position = mul(cb_wvp.view_matrix, vs_output.position);
     vs_output.position = mul(cb_wvp.projection_matrix, vs_output.position);

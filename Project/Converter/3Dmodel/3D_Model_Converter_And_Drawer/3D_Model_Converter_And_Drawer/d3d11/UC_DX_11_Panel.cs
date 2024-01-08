@@ -125,6 +125,7 @@ namespace _3D_Model_Converter_And_Drawer.d3d11
 
 
             // 頂点バッファの設定
+            in_draw_call.mp_vertex_buffer.M_Create_Vertex_Buffer(m_renderer.mp_device);
             in_draw_call.mp_vertex_buffer.M_Set_Vertex_Buffer(m_renderer.mp_device, m_renderer.mp_context);
 
             // 頂点バッファがなければ描画しない
